@@ -1,0 +1,45 @@
+﻿@page
+@model BrainUp.Areas.Admin.Pages.Currencies.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete currency";
+}
+
+<div class="text-welcome-register pt-3 p-lg-3 pr-3 pb-1">
+    Delete currency
+    <p class="mb-0">
+        <a class="a-link text-small" asp-page="./Index">Back to List</a>
+    </p>
+</div>
+
+<hr />
+<div class="row">
+    <div class="form-group form-dd-element">
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Currency.Symbol)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Currency.Symbol)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Currency.Name)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Currency.Name)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Currency.Usdequivalent)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Currency.Usdequivalent)
+            </dd>
+        </dl>
+    </div>
+    <div class="form-group form-input-element">
+        <form method="post">
+            <input type="hidden" asp-for="Currency.Symbol" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+
+
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="dropdown text-end">
+            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="@Url.Action("GetAvatar","Image")" alt="profile" width="40" height="40" class="rounded-circle">
+            </a>
+
+            <ul class="dropdown-menu text-small dropdown-menu-dark rounded-3 shadow">
+                <li><a class="dropdown-item">@User.Identity.Name</a></li>
+                @if (User.IsInRole("Teacher"))
+                {
+                    <a class="dropdown-item" asp-controller="Cources" asp-action="TeacherCourses">My cources</a>
+                }
+                @if (User.IsInRole("Student"))
+                {
+                    <a class="dropdown-item" asp-controller="Cources" asp-action="StudentCourses">My courses</a>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="dropdown-item" href="Admin/Index">Admin Page</a>
+                }
+
+                <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Log out</a></li>
+            </ul>
+        </div>
+    }
+    else
+    {
+        
+        <li class="nav-item">
+            <a class="nav-link text-inter text-middle" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>

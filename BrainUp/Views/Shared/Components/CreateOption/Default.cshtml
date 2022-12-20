@@ -1,0 +1,22 @@
+﻿@model BrainUp.ViewModels.OptionViewModel
+
+
+<form asp-action="AddOption" asp-controller="Task" method="post">
+    <input hidden asp-for="TaskId" class="form-control" />
+    <tr>
+        <td>
+            <input class="form-check-input" asp-for="@Model.IsTrue" />
+        </td>
+        <td>
+            <input asp-for="@Model.Option" class="form-control" />
+        </td>
+        <td class="table-content-right">
+            <input type="submit" value="Create" class="btn btn-primary btn-register" />
+        </td>
+    </tr>
+</form>
+
+
+
+
+

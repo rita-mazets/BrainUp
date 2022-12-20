@@ -1,0 +1,53 @@
+﻿@page
+@model BrainUp.Areas.Admin.Pages.Users.IndexModel
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="text-welcome-register pt-3 p-lg-3 pr-3 pb-1">
+    Users
+    <p class="mb-0">
+        <a class="a-link text-small" asp-page="Create">Create New</a>
+    </p>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.User) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>            
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+             <td class="table-content-right">
+                <a asp-page="./Details" asp-route-id="@item.Id" class="a-link">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

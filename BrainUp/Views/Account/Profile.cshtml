@@ -1,0 +1,72 @@
+﻿@model BrainUp.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="row">
+    <div class="col-4">
+        <div class="p-3">
+            <div class="wrap exmpl border-radius-24">
+                <img src="~/img/@Model.ImageString" alt="profile"  />
+            </div>
+            @if (ViewBag.point != null && (User.IsInRole("Student")))
+            {
+                <div class="justify-content-center mt-3">
+                    <p class="text-inter text-middle">Your points: @ViewBag.Point</p>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="p-3">
+            <form asp-action="Profile" asp-controller="Account" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div  class="form-group form-input-element">
+                    <p class="text-inter text-middle">Email: @Model.Email</p>
+                </div>
+                <div hidden class="form-group form-input-element">
+                    <label hidden asp-for="Email" class="control-label"></label>
+                    <input hidden asp-for="Email" class="form-control" />
+                    <span hidden asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group form-input-element">
+                    <label class="text-inter text-small">First name</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group form-input-element">
+                    <label class="text-inter text-small">Last name</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group form-input-element">
+                    <label class="text-inter text-small">Phone number</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group form-input-element">
+                    <label asp-for="Discription" class="text-inter text-small"></label>
+                    <textarea asp-for="Discription" class="form-control" ></textarea>
+                    <span asp-validation-for="Discription" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group form-input-element">
+                    <label for="file-upload" class="custom-file-upload text-inter text-small">
+                         Choose image
+                    </label>
+                    <input asp-for="ImageFormFile" id="file-upload" type="file" />
+                </div>
+
+                <div class="form-group form-input-element">
+                    <input type="submit" value="Save" class="btn btn-primary btn-register" />
+                </div>
+            </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

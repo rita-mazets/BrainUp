@@ -1,0 +1,41 @@
+﻿@model RegisterModel
+
+@{
+    ViewBag.Title = "Register Page";
+    Layout = "~/Views/Account/_LoginLayout.cshtml";
+}
+
+
+<form id="registerForm" asp-controller="Account" asp-action="Register" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-floating form-register-element">
+        <input asp-for="@Model.Email" class="form-control" autocomplete="username" aria-required="true" />
+        <label asp-for="@Model.Email"></label>
+        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+    </div>
+    <div class="form-floating form-register-element">
+        <input asp-for="@Model.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+        <label asp-for="@Model.Password"></label>
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+    </div>
+    <div class="form-floating form-register-element">
+        <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+        <label asp-for="@Model.ConfirmPassword"></label>
+        <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-floating form-register-element">
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary btn-register">Register</button>
+    </div>
+
+    <div class="form-floating form-register-element text-small">
+        Already have an account?
+        <a asp-controller="Account" asp-action="Login" style="color: #354D8A;">Log in</a>
+    </div>
+    <div class="form-floating form-register-element text-small">
+        Do you want to create a course?
+        <a style="color: #354D8A;" asp-controller="Account" asp-action="RegisterTeacher">Create teacher account</a>
+    </div>
+
+</form>

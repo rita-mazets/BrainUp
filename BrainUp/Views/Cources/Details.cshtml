@@ -1,0 +1,195 @@
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<BrainUp.Data.StripeSettings> Stripe
+@model BrainUp.Models.Cource
+
+@{
+    ViewData["Title"] = "Details";
+    var price = ViewBag.PriceInUsd ?? "";
+    long amount = ViewBag.Amount ?? 0;
+    int stars = ViewBag.star ?? 0;
+
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+    const body = document.getElementById('body');
+    body.className += " bg-img";
+</script>
+<div class="text-center">
+    <h1 class="text-content text-shadow text-logo mt-5">@Html.DisplayFor(model => model.Name)</h1>
+</div>
+<div class="row">
+    @if (User.IsInRole("Student"))
+    {
+        @if (!ViewBag.IsRegister)
+        {   @if (Model.Price.Price1 > 0.001m)
+                {
+                    <div class="justify-content-center">
+                        <form asp-action="Charge" asp-controller="Cources" asp-route-price="@amount" asp-route-courceId="@Model.Id" method="post">
+                            <script src="//checkout.stripe.com/v2/checkout.js"
+                                class="stripe-button"
+                                data-key="@Stripe.Value.PublishableKey"
+                                data-locale="auto"
+                                data-description="Sample Charge"
+                                data-amount="@amount"></script>
+                        </form>
+                    </div>
+                }
+            else
+            {
+            <div class="col-2 justify-content-start m-3">
+                <a asp-route-id="@Model.Id" asp-action="Register" style="text-decoration:none"> <input type="button" value="Register" class="btn btn-primary btn-register btn-block" /></a>
+            </div>
+            }
+        }
+        else
+        {
+            <div class="col-2 justify-content-start m-3">
+                <a asp-route-id="@Model.Id" asp-action="Study" style="text-decoration:none"> <input type="button" value="Study" class="btn btn-primary btn-register btn-block" /></a>
+            </div>
+        }
+    }
+     @if (User.IsInRole("Teacher") && Model.Teacher.Email == User.Identity.Name)
+    {
+        <div class="col-2 justify-content-start m-3">
+            <a asp-route-id="@Model.Id" asp-action="Edit" style="text-decoration:none"> <input type="button" value="Edit" class="btn btn-primary btn-register btn-block" /></a>
+        </div>
+        <div class="col-2 justify-content-start m-3">
+            <a asp-route-id="@Model.Id" asp-action="Fill" style="text-decoration:none"> <input type="button" value="Fill data " class="btn btn-primary btn-register btn-block" /></a>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-9">
+        <div class="background-panel p-5 m-3">
+            <h3>@Html.DisplayNameFor(model => model.Discription)</h3>
+            <p class="text-gray text-cintent text-middle">@Html.DisplayFor(model => model.Discription)</p>
+            <hr/>
+            <h3>@Html.DisplayNameFor(model => model.Teacher)</h3>
+            <div class="justify-content-start">
+                <div class="chip m-3">
+                    @if (@Model.Teacher.Image != null)
+                    {
+                        <img src="~/img/@Model.Teacher.Image" alt="Person" width="150" height="150">
+                    }
+                    else
+                    {
+                        <img src="~/img/avatar.png" alt="Person" width="150" height="150">
+                    }
+                    <p class="text-gray text-big">@Html.DisplayFor(model => model.Teacher.FirstName) @Html.DisplayFor(model => model.Teacher.LastName)</p>
+                </div>
+                <p class="text-gray text-cintent text-middle">@Html.DisplayFor(model => model.Teacher.Discription)</p>
+            </div>
+        </div>
+        <div class="background-panel p-5 m-3">
+            <p class="text-inter text-miidle color-dimgrey">Comments</p>
+            @if (ViewBag.IsRegister && ViewBag.Activity != "addComment" && ViewBag.Activity != "addRank")
+            {
+                <div class="justify-content-start m-3">
+                    @await Component.InvokeAsync("CreateRank", new { id = Model.Id })
+                </div>
+                <div class="row">
+                    <div class="col-3 justify-content-start m-3">
+                        <a asp-route-id="@Model.Id" asp-action="Details" asp-route-activity="addComment" id="addComment" style="text-decoration:none"> <input type="button" value="Add Comment" class="btn btn-primary btn-register btn-block" /></a>
+                    </div>
+                    
+                    
+
+                    
+                </div>
+            }
+            @if (ViewBag.Activity == "addComment")
+            {
+                @await Component.InvokeAsync("CreateFeedback", new { id = Model.Id })
+            }
+            
+
+            @foreach(var feedback in Model.Feedbacks.OrderByDescending(f => f.CreatedDate))
+            {
+                <div class="background-panel-content p-3  m-3">
+                    <p class="text-comment-small">@feedback.CreatedDate</p>
+                    <p class="text-comment">@feedback.Message</p>
+                </div>
+            }
+
+        </div>
+
+        
+    </div>
+    <div class="col-3">
+        <div class="background-panel m-3">
+            <div>
+                <div class="details-card-headline text-center p-3">Summary</div>
+                <div class="p-3">
+                    <p class="details-card-name-text">Start</p>
+                    <p class="details-card-text"> @Html.DisplayFor(model => model.StartDate)</p>
+                    <hr/>
+                    <p class="details-card-name-text">End</p>
+                    <p class="details-card-text"> @Html.DisplayFor(model => model.EndDate)</p>
+                    <hr />
+                    <p class="details-card-name-text">@Html.DisplayNameFor(model => model.Level)</p>
+                    <p class="details-card-text"> @Html.DisplayFor(model => model.Level.Name)</p>
+                    <hr />
+                    <p class="details-card-name-text">@Html.DisplayNameFor(model => model.Language)</p>
+                    <p class="details-card-text"> @Html.DisplayFor(model => model.Language.Name)</p>
+                    <hr />
+                    <p class="details-card-name-text">@Html.DisplayNameFor(model => model.Price)</p>
+                    @if (Model.Price.Price1 > 0.001m)
+                    {
+                        <p class="details-card-text"> @price $</p>
+                    }
+                    else
+                    {
+                        <p class="details-card-text">Is free</p>
+                    }
+                    <hr />
+                    <p class="details-card-name-text">Rate</p>
+                        <span class="hint-star star">
+                        @if (stars != 0)
+                        {
+                            @for (int i = 0; i < stars; i++)
+                            {
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            }
+                            @for (int i = 0; i < 5 - stars; i++)
+                            {
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            }
+                        }
+                    </span>
+                    @if (User.IsInRole("Student"))
+                    {
+                        @if (!ViewBag.IsRegister)
+                        {
+                            @if (Model.Price.Price1 > 0.001m)
+                            {
+                                <div class="justify-content-center">
+                                    <form asp-action="Charge" asp-controller="Cources" asp-route-price="@amount" asp-route-courceId="@Model.Id" method="post">
+                                        <script src="//checkout.stripe.com/v2/checkout.js"
+                                            class="stripe-button"
+                                            data-key="@Stripe.Value.PublishableKey"
+                                            data-locale="auto"
+                                            data-description="Sample Charge"
+                                            data-amount="@amount"></script>
+                                    </form>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="justify-content-center m-3">
+                                    <a asp-route-id="@Model.Id" asp-action="Register" style="text-decoration:none"> <input type="button" value="Register" class="btn btn-primary btn-register btn-block" /></a>
+                                </div>
+                            }
+                        }
+                        else 
+                        {
+                            <div class="justify-content-center m-3">
+                                <a asp-route-id="@Model.Id" asp-action="Study" style="text-decoration:none"> <input type="button" value="Study" class="btn btn-primary btn-register btn-block" /></a>
+                            </div>
+                        }
+                        
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

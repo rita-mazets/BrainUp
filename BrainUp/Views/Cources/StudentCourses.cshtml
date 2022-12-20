@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BrainUp.Models.Cource>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="album py-5">
+    <div class="container">
+        <div class="cource row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            
+            @foreach (var item in Model)
+            {
+                <div class="col h-100">
+                    <div class="card  shadow-sm border-radius-24 min-height-70">
+                        @if (item.Image != null)
+                        {
+                            <img src="~/img/@item.Image" alt="NoImage" class="bd-placeholder-img card-img-top border-radius-24 " />
+                        }
+                        else
+                        {
+                            <img src="~/img/defaultCource.jpg" alt="NoImage" class="bd-placeholder-img card-img-top border-radius-24 " />
+                        }
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center card_content">
+                                <h4 class="card_title">@Html.DisplayFor(modelItem => item.Name)</h4>
+                                <div style="height: 50%; vertical-align: middle">
+                                    <p class="card_text">@Html.DisplayFor(modelItem => item.ShotDiscription) </p>
+                                </div>
+                                <a asp-route-id="@item.Id" asp-action="Study" style="text-decoration:none"> <input type="button" value="Study" class="btn btn-block card_btn" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

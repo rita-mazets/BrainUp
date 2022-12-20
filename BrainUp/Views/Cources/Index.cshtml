@@ -1,0 +1,123 @@
+﻿@model IEnumerable<BrainUp.Models.Cource>
+
+@{
+    ViewData["Title"] = "Index";
+
+    var categories = ViewData["Categories"] as IEnumerable<Category>;
+    bool isTeaher = ViewBag.Teacher ?? false;
+    int currentCategoryId = 0;
+    if (ViewData["CurrentCategory"] != null)
+    { 
+        currentCategoryId = (int)ViewData["CurrentCategory"];
+    }
+
+    var text = ViewBag.All as Category;
+
+    var starsDict = ViewBag.starsDict as Dictionary<int, int>;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@if (User.IsInRole("Teacher"))
+{
+    <div class="col-2 justify-content-start m-3">
+        <a asp-action="Create" style="text-decoration:none"> <input type="button" value="Create cource" class="btn btn-primary btn-register btn-block" /></a>
+    </div>
+}
+
+<div class="album py-5">
+    <div class="container">
+        <div class="row">
+            @if (!isTeaher)
+            {
+            <div class="col-2">
+                <div class="background-panel mt-2 p-2 min-height-70">
+                    
+                        @if (currentCategoryId == 0)
+                        {
+                            <a asp-action="Index"
+                       asp-controller="Cources" class="category-text">
+                                <div class="background-panel mb-2 bg-background-color-dark-blue p-2 category-active justify-content-center align-content-center">
+                                    <p class="text-inter text-small category-text"> All</p>
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-action="Index"
+                       asp-controller="Cources" class="category-text">
+                                <div class="background-panel mb-2 bg-background-color-dark-blue p-2 justify-content-center align-content-center">
+                                    <p class="text-inter text-small category-text"> All</p>
+                                </div>
+                            </a>
+                        }
+                        @foreach (var item in categories)
+                        {
+                            if (item.Id == currentCategoryId)
+                            {
+                                <a  asp-action="Index"
+                               asp-controller="Cources"
+                           asp-route-categoryId="@item.Id" class="category-text">
+                                    <div class="background-panel mb-2 bg-background-color-dark-blue p-2 category-active justify-content-center align-content-center">
+                                        <p class="text-inter text-small category-text"> @item.Name</p>
+                                    </div>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-action="Index"
+                       asp-controller="Cources"
+                       asp-route-categoryId="@item.Id" class="category-text">
+                                    <div class="background-panel mb-2 bg-background-color-dark-blue p-2 justify-content-center align-content-center">
+                                        <p class="text-inter text-small category-text"> @item.Name</p>
+                                    </div>
+                                </a>
+                            }
+                        }
+                </div>
+            </div>
+            }
+            <div class="col-10">
+
+                <div class="cource row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    @foreach (var item in Model) {
+                        <div class="col h-100">
+                            <div class="card  shadow-sm border-radius-24 min-height-70">
+                                @if (item.Image != null)
+                                {
+                                    <img src="~/img/@item.Image" alt="NoImage" class="bd-placeholder-img card-img-top border-radius-24 " />
+                                }
+                                else
+                                {
+                                    <img src="~/img/defaultCource.jpg" alt="NoImage" class="bd-placeholder-img card-img-top border-radius-24 " />
+                                }
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center card_content">
+                                        <h4 class="card_title">@Html.DisplayFor(modelItem => item.Name)</h4>
+                                        <span class="hint-star star">
+                                            @if (starsDict[item.Id]!= 0)
+                                            {
+                                                @for (int i = 0; i < starsDict[item.Id]; i++)
+                                                {
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                }
+                                                @for (int i = 0; i < 5 - starsDict[item.Id]; i++)
+                                                {
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                }
+                                            }
+                                        </span>
+                                        <div style="height: 50%; vertical-align: middle">
+                                            <p class="card_text">@Html.DisplayFor(modelItem => item.ShotDiscription) </p>
+                                        </div>
+                                        <a asp-route-id="@item.Id" asp-action="Details" style="text-decoration:none"> <input type="button" value="More" class="btn btn-block card_btn"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

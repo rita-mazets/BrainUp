@@ -1,0 +1,106 @@
+﻿@model BrainUp.Models.Cource
+
+@{
+    ViewData["Title"] = "Study";
+}
+
+<script>
+    const body = document.getElementById('body');
+    //body.className += " bg-img";
+    wrapper.className += " height-100";
+
+</script>
+
+<div class="text-center">
+    <h1 class="text-content text-shadow text-logo mt-3">@Html.DisplayFor(model => model.Name)</h1>
+</div>
+
+<div class="row">
+    <div class="col-4">
+        <div class="background-panel min-height-50 p-3 text-nav">
+            @await Component.InvokeAsync("NavigationMenu", new { id = Model.Id })
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="background-panel bg-background-color-dark-blue min-height-50 p-3">
+            @await Component.InvokeAsync("NavComponent")
+
+            <div class="mt-5">
+               
+               
+
+                @if (ViewBag.Number == "CreateMenu")
+                {
+                    @await Component.InvokeAsync("CreateMenu", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "EditMenu")
+                {
+                    @await Component.InvokeAsync("EditMenu", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "DeleteMenu")
+                {
+                    @await Component.InvokeAsync("DeleteMenu", new { id = Model.Id })
+                }
+
+
+                @if (ViewBag.Number == "CreateSubmenu")
+                {
+                    @await Component.InvokeAsync("CreateSubMenu", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "EditSubmenu")
+                {
+                    @await Component.InvokeAsync("EditSubmenu", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "DeleteSubMenu")
+                {
+                    @await Component.InvokeAsync("DeleteSubMenu", new { id = Model.Id })
+                }
+
+
+
+                @if (ViewBag.Number == "CreateContent")
+                {
+                    @await Component.InvokeAsync("CreateContent", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "EditContent")
+                {
+                    @await Component.InvokeAsync("EditContent", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "DeleteContent")
+                {
+                    @await Component.InvokeAsync("DeleteContent", new { id = Model.Id })
+                }
+
+
+                @if (ViewBag.Number == "CreateTask")
+                {
+                    @await Component.InvokeAsync("CreateTask", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "EditTask")
+                {
+                    @await Component.InvokeAsync("EditTask", new { id = Model.Id })
+                }
+                @if (ViewBag.Number == "DeleteTask")
+                {
+                    @await Component.InvokeAsync("DeleteTask", new { id = Model.Id })
+                }
+
+                @if (ViewBag.Task != 0)
+                {
+                    @await Component.InvokeAsync("ReadTask", new { taskId = ViewBag.Task })
+                }
+
+                @if (ViewBag.Content != 0)
+                {
+                    @await Component.InvokeAsync("ReadContent", new { contentId = ViewBag.Content })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

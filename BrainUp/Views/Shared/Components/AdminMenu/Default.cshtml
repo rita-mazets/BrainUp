@@ -1,0 +1,8 @@
+﻿@model IEnumerable<MenuItem>
+<div class="navbar-nav">
+    <a class="nav-item nav-link text-white link-hover" href='@Url.Page("/Users/Index", new { area = "Admin" })'>Users</a>
+    <a class="nav-item nav-link text-white link-hover" href='@Url.Page("/Categories/Index", new { area = "Admin" })'>Categories</a>
+    <a class="nav-item nav-link text-white link-hover" href='@Url.Page("/Currencies/Index", new { area = "Admin" })'>Currencies</a>
+    <a class="nav-item nav-link text-white link-hover" href='@Url.Page("/Languages/Index", new { area = "Admin" })'>Languages</a>
+    <a class="nav-item nav-link text-white link-hover" href='@Url.Page("/Levels/Index", new { area = "Admin" })'>Levels</a>
+</div>

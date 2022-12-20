@@ -1,0 +1,111 @@
+﻿@model BrainUp.ViewModels.CourceModel
+
+@{
+    ViewData["Title"] = "Edit cource";
+}
+<div class="justify-content-center mt-5">
+    <h1 class="text-inter text-big text-center">Edit cource</h1>
+</div>
+<hr />
+<div class="row">
+    <form asp-action="Edit" enctype="multipart/form-data" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="PriceId" />
+        <input type="hidden" asp-for="ImageString" />
+        <input type="hidden" asp-for="TeacherId" />
+        <div class="row">
+            <div class="col">
+                <div class="form-group m-3">
+                    <label asp-for="Name" class="text-inter text-middle"></label>
+                    <input asp-for="Name" aria-required="true" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group m-3">
+                    <label asp-for="Category" class="text-inter text-middle"></label>
+                    <select asp-for="Category" class="form-control" asp-items="ViewBag.CategoryName"></select>
+                </div>
+
+                <div class="form-group m-3">
+                    <label asp-for="Level" class="text-inter text-middle"></label>
+                    <select asp-for="Level" class="form-control" asp-items="ViewBag.LevelName"></select>
+                </div>
+
+                <div class="form-group m-3">
+                    <label asp-for="Language" class="text-inter text-middle"></label>
+                    <select asp-for="Language" class="form-control" asp-items="ViewBag.LanguageName"></select>
+                </div>
+
+                <div class="form-group m-3">
+                    <label class="text-inter text-middle">Storage link</label>
+                    <input asp-for="StorageLink" class="form-control" />
+                    <span asp-validation-for="StorageLink" class="text-danger"></span>
+                </div>
+
+                <div class="row m-3">
+                    <div class="form-group col justify-content-start p-0 m-lg-1">
+                        <label class="text-inter text-middle">Start date</label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col justify-content-start p-0 m-lg-1">
+                        <label class="text-inter text-middle">End date</label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group m-3 mt-5">
+                    <label class="text-inter text-middle">Image</label>
+                @if (Model.ImageString == null)
+                {
+                        <div class="mt-5">
+                            <label for="file-upload" class="custom-file-upload text-inter text-small">
+                                Add image
+                            </label>
+                            <input asp-for="Image" id="file-upload" type="file" />
+                        </div>
+                }
+                else
+                {
+                    <img src="~/img/@Model.ImageString" asp-for="ImageString" alt="NoImage" class="bd-placeholder-img card-img-top border-radius-24 mt-3" />
+                    <div class="mt-5">
+                        <label for="file-upload" class="custom-file-upload text-inter text-small">
+                            Add image
+                        </label>
+                        <input asp-for="Image" id="file-upload" type="file" />
+                    </div>
+
+                }
+                </div>
+                <div class="form-group m-3 mt-5">
+                    <input type="submit" value="Save" class="btn btn-primary btn-register" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group m-3">
+                    <label class="text-inter text-middle">Short discription</label>
+                    <textarea asp-for="ShotDiscription" maxlength="100" style="height:16.5vh;" class="form-control"></textarea>
+                    <span asp-validation-for="ShotDiscription" class="text-danger"></span>
+                </div>
+                <div class="form-group m-3">
+                    <label asp-for="Discription" class="text-inter text-middle"></label>
+                    <textarea asp-for="Discription" class="form-control " style="height:26vh;"></textarea>
+                    <span asp-validation-for="Discription" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="form-group col m-3">
+                        <label class="text-inter text-middle">Price</label>
+                        <input  asp-for="Price.PriceString" class="form-control">
+                        <span asp-validation-for="Price.PriceString" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col m-3">
+                        <label class="text-inter text-middle">Currency</label>
+                        <select asp-for="Price.Currency" class="form-control" asp-items="ViewBag.Currency"></select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

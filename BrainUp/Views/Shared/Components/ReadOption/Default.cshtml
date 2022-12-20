@@ -1,0 +1,18 @@
+﻿@model OptionViewModel
+
+<form method="post">
+<input hidden asp-for="TaskId" class="form-control" />
+<input hidden asp-for="OptionId" class="form-control" />
+<tr>
+    <td>
+        <input class="form-check-input" asp-for="@Model.IsTrue" />
+    </td>
+    <td>
+            <input asp-for="@Model.Option" class="form-control" />
+    </td>
+    <td class="table-content-right">
+        <input asp-action="UpdateOption" asp-controller="Task" type="submit" value="Save" class="btn btn-primary btn-register" />
+        <input asp-action="DeleteOption" asp-controller="Task" type="submit" value="Delete" class="btn btn-primary btn-register" />
+    </td>
+</tr>
+</form>

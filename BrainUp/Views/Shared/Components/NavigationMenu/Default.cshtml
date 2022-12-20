@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Menu>
+<div class="row">
+        @foreach (var menu in Model)
+        {
+            if (menu.SubMenus.Count() == 0)
+            {
+            <a class="dropdown-text-dark dropdown-text-end" asp-action="Fill" asp-route-id="@menu.CourceId" asp-route-menuId="@menu.Id">@menu.Name</a>
+            }
+            else
+            {
+                <button id="menu.Id" class="dropdown-btn-leight">
+                    @menu.Name
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container-leight">
+                    @foreach (var submenu in menu.SubMenus)
+                    {
+                        @if (submenu.Tasks.Count() == 0 && submenu.Contents.Count() == 0)
+                        {
+                        <a class="dropdown-text-dark dropdown-text-end" asp-action="Fill" asp-route-id="@menu.CourceId" asp-route-menuId="@menu.Id" asp-route-submenuId="@submenu.Id">@submenu.Name</a>
+
+                        <br />
+                        }
+                        else
+                        {
+                        <button class="dropdown-btn-leight">
+                                @submenu.Name
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                        <div class="dropdown-container-leight">
+                                @foreach (var content in submenu.Contents)
+                                {
+                                    <a class="dropdown-text-dark" asp-action="Fill" asp-route-id="@menu.CourceId" asp-route-menuId="@menu.Id"
+                   asp-route-submenuId="@submenu.Id" asp-route-contentId="@content.Id">@content.Name</a>
+
+                                    <br />
+                                }
+                                @foreach (var task in submenu.Tasks)
+                                {
+                                <a class="dropdown-text-dark" asp-action="Fill" asp-route-id="@menu.CourceId" asp-route-menuId="@menu.Id"
+               asp-route-submenuId="@submenu.Id" asp-route-number="4" asp-route-taskId="@task.Id">@task.Name</a>
+
+                                <br />
+                                }
+                            </div>
+                        }
+
+                    }
+                </div>
+
+            }
+        }
+</div>
+
+<script>
+    var dropdown = document.getElementsByClassName("dropdown-btn-leight");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active-study");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }           
+        });
+    }
+
+</script>

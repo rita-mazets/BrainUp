@@ -1,0 +1,70 @@
+﻿@model BrainUp.ViewModels.RankViewModel
+
+<style>
+    .rating-wrapper {
+        align-self: center;
+        box-shadow: 7px 7px 25px rgba(198, 206, 237, .7), -7px -7px 35px rgba(255, 255, 255, .7), inset 0px 0px 4px rgba(255, 255, 255, .9), inset 7px 7px 15px rgba(198, 206, 237, .8);
+        border-radius: 5rem;
+        display: inline-flex;
+        direction: rtl !important;
+        padding: 1.5rem 2.5rem;
+        margin-left: auto;
+    }
+
+    label {
+        color: #E1E6F6;
+        cursor: pointer;
+        display: inline-flex;
+        font-size: 3rem;
+        padding: 1rem .6rem;
+        transition: color 0.5s;
+        border-color: #91a6ff;
+    }
+    input {
+        height: 100%;
+        width: 100%;
+    }
+
+input {
+        display: none;
+    }
+
+
+.stars input:nth-child(1):checked ~ label:nth-of-type(-n ),
+.stars input:nth-child(2):checked ~ label:nth-of-type(-n + 1),
+.stars input:nth-child(3):checked ~ label:nth-of-type(-n + 2),
+.stars input:nth-child(4):checked ~ label:nth-of-type(-n + 3),
+.stars input:nth-child(5):checked ~ label:nth-of-type(-n + 4),
+.stars input:nth-child(6):checked ~ label:nth-of-type(-n + 5) {
+            color: #91a6ff;
+}
+</style>
+
+
+<div class=" stars">
+
+    <form asp-action="Add" asp-controller="Rank" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="@Model.CourceId" class="form-control" />
+
+        <input asp-for="@Model.Value1" type="radio"  value="1" />
+        <input asp-for="@Model.Value2" type="radio"  value="2" />
+        <input asp-for="@Model.Value3" type="radio"  value="3" />
+        <input asp-for="@Model.Value4" type="radio"  value="4" />
+        <input asp-for="@Model.Value5" type="radio"  value="5" />
+        <input hidden type="radio" value="5" />
+
+        <label asp-for="@Model.Value1" class="star-rating"> <i class="fa fa-star d-inline-block"></i></label>
+        <label asp-for="@Model.Value2" class="star-rating"> <i class="fa fa-star d-inline-block"></i></label>
+        <label asp-for="@Model.Value3" class="star-rating"> <i class="fa fa-star d-inline-block"></i></label>
+        <label asp-for="@Model.Value4" class="star-rating"> <i class="fa fa-star d-inline-block"></i></label>
+        <label asp-for="@Model.Value5" class="star-rating"> <i class="fa fa-star d-inline-block"></i></label>
+        <label hidden class="star-rating"> <i class="fa fa-star d-inline-block"></i></label>
+
+
+        <div class="form-floating form-register-element">
+            <input type="submit" value="React" class="btn btn-primary btn-register" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,44 @@
+﻿@model BrainUp.ViewModels.TaskViewModel
+
+
+<form asp-action="Update" asp-controller="Task" method="post">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group form-register-element">
+        <label asp-for="Id" class="text-inter text-small">Submenu</label>
+        <select asp-for="Id" class="form-control" asp-items="@ViewBag.TaskMenu"></select>
+    </div>
+    <div class="form-group form-register-element">
+        <label asp-for="@Model.Name" class="text-inter text-small"></label>
+        <input asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group form-register-element">
+        <label asp-for="@Model.Condition" class="text-inter text-small"></label>
+        <input asp-for="@Model.Condition" class="form-control" />
+        <span asp-validation-for="@Model.Condition" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-register-element">
+        <label asp-for="@Model.Point" class="text-inter text-small"></label>
+        <input asp-for="@Model.Point" class="form-control" />
+        <span asp-validation-for="@Model.Point" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group form-input-element">
+        <label for="file-upload" class="custom-file-upload text-inter text-small">
+            Choose image
+        </label>
+        <input asp-for="ImageFormFile" id="file-upload" type="file" />
+    </div>
+
+   <div class="form-group form-input-element">
+        <input asp-for="@Model.ImageFormFile" type="file" value="Add image" class="btn btn-primary btn-register">
+        <span asp-validation-for="@Model.ImageFormFile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-register-element">
+        <input type="submit" value="Edit" class="btn btn-primary btn-register" />
+    </div>
+</form>

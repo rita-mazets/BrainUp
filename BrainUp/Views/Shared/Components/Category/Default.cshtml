@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Category>
+
+@foreach (var item in Model)
+{
+    <input type="radio" id="@item.Id" name="category" value="@item.Id">
+}
+<ol class="filters">
+    @foreach (var item in Model)
+    {
+        <li>
+            <label for="@item.Id">@item.Name</label>
+        </li>
+    }
+</ol>

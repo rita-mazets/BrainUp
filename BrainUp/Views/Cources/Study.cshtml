@@ -1,0 +1,82 @@
+﻿@model BrainUp.Models.Cource
+
+@{
+    ViewData["Title"] = "Study";
+}
+
+<script>
+    /*const wrapper = document.getElementById('wrap');
+    wrapper.className += " bg-color-dark-blue";*/
+
+    const body = document.getElementById('body');
+    body.className += " bg-img";
+    wrapper.className += " height-100";
+
+</script>
+
+<div class="text-center">
+    <h1 class="text-content text-shadow text-logo mt-3">@Html.DisplayFor(model => model.Name)</h1>
+</div>
+<div class="text-start p-5">
+    <h3 class="text-inter text-light text-shadow">Storage: <a class="a-link" href="@Model.StorageLink"></a></h3>
+</div>
+
+<div class="row">
+    <div class="col-4">
+        <div class="background-panel min-height-50 p-3 text-nav-study">
+            @await Component.InvokeAsync("StudyNavigationMenu", new { id = Model.Id })
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="background-panel min-height-50 p-3">
+            @if (ViewBag.ContentId != null)
+            {
+                @await Component.InvokeAsync("ContentDetails", new { contentId = ViewBag.ContentId })
+            }
+
+            @if (ViewBag.TaskId != null)
+            {
+                @await Component.InvokeAsync("TaskDetails", new { taskId = ViewBag.TaskId, myAnswer = ViewBag.MyAnswer, point = ViewBag.Point })
+                <div class="form-floating form-register-element justify-content-center">
+                    @if (ViewBag.IsTrue && ViewBag.trueAnswer != null)
+                    {
+                        <p class="text-inter  text-radiobutton text-green">Right!</p>
+                    }
+                    else if (!ViewBag.IsTrue && ViewBag.trueAnswer != null)
+                    {
+                        <p class="text-inter  text-radiobutton text-danger">You wrong...</p>
+                        <p class="text-inter  text-radiobutton text-green">Right answer: @ViewBag.TrueAnswer</p>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!--<div class="row">
+    <div class="text-center">
+        <h1 class="text-content text-shadow text-logo mt-5">Html.DisplayFor(model => model.Name)</h1>
+    </div>
+    await Component.InvokeAsync("StudyNavigationMenu", new { id = Model.Id })
+    <div class="col-md-4"></div>
+    <div class="col-md-8 mt-5" >
+        <div class="background-panel p-3">
+            if (ViewBag.TaskId != 0)
+            {
+                await Component.InvokeAsync("TaskDetails", new { taskId = ViewBag.TaskId })
+            }
+        </div>
+    </div>
+</div>-->
+
+
+@section Scripts {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

@@ -1,0 +1,97 @@
+﻿@model BrainUp.ViewModels.CourceModel
+
+@{
+    ViewData["Title"] = "Create cource";
+}
+<div class="justify-content-center">
+    <h1 class="text-inter text-big text-center">Create cource</h1>
+</div>
+<hr />
+<div class="row">
+    <form asp-action="Create" enctype="multipart/form-data enctype=" multipart /form-data"">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group m-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name"  aria-required="true" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group m-3">
+                    <label asp-for="Category" class="form-label"></label>
+                    <select asp-for="Category" class="form-control" asp-items="ViewBag.CategoryName"></select>
+                </div>
+
+                <div class="form-group m-3">
+                    <label asp-for="Level" class="form-label"></label>
+                    <select asp-for="Level" class="form-control" asp-items="ViewBag.LevelName"></select>
+                </div>
+
+                <div class="form-group m-3">
+                    <label asp-for="Language" class="form-label"></label>
+                    <select asp-for="Language" class="form-control" asp-items="ViewBag.LanguageName"></select>
+                </div>
+                
+                <div class="form-group m-3">
+                    <label asp-for="StorageLink" class="form-label"></label>
+                    <input asp-for="StorageLink" class="form-control" />
+                    <span asp-validation-for="StorageLink" class="text-danger"></span>
+                </div>
+
+                <div class="row m-3">
+                    <div class="form-group col justify-content-start p-0 m-lg-1">
+                        <label asp-for="StartDate" class="form-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col justify-content-start p-0 m-lg-1">
+                        <label asp-for="EndDate" class="form-label"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group m-3 mt-5">
+                    <label for="file-upload" class="custom-file-upload text-inter text-small">
+                        Choose image
+                    </label>
+                    <input asp-for="Image" id="file-upload" type="file" />
+                </div>
+
+                <div class="form-group m-3 mt-5">
+                    <input type="submit" value="Create" class="btn btn-primary btn-register" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group m-3">
+                    <label asp-for="ShotDiscription" class="form-label"></label>
+                    <textarea asp-for="ShotDiscription" maxlength="100" style="height:16.5vh;" class="form-control"></textarea>
+                    <span asp-validation-for="ShotDiscription" class="text-danger"></span>
+                </div>
+                <div class="form-group m-3">
+                    <label asp-for="Discription" class="form-label"></label>
+                    <textarea asp-for="Discription" class="form-control " style="height:26vh;"></textarea>
+                    <span asp-validation-for="Discription" class="text-danger"></span>
+                </div>      
+                <div class="row">
+                    <div class="form-group col m-3">
+                        <label asp-for="Price.PriceString" class="form-label"></label>
+                        <input asp-for="Price.PriceString" class="form-control">
+                        <span asp-validation-for="Price.PriceString" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col m-3">
+                        <label asp-for="Price.Currency" class="form-label"></label>
+                        <select asp-for="Price.Currency" class="form-control" asp-items="ViewBag.Currency"></select>
+                    </div> 
+                </div>
+            </div>
+            
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

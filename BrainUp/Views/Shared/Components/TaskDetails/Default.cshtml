@@ -1,0 +1,43 @@
+﻿@model BrainUp.ViewModels.TaskViewModel
+@if (Model.Condition != null)
+{ 
+     <div class="form-floating form-register-element justify-content-center">
+            <p class="text-inter text-welcome-register text-dark">@Model.Condition</p>
+            <p class="text-inter text-radiobutton text-black-50">Point: @Model.Point</p>
+        @if (!string.IsNullOrEmpty(Model.Image))
+        { 
+            <img src="~/img/@Model.Image" width="100%"/>
+        }
+        <hr />
+    </div>
+}
+
+
+<form asp-action="Respond" asp-controller="Task" method="post">
+    <input hidden asp-for="@Model.TaskId" class="form-control" />
+    <input hidden asp-for="@Model.Id" class="form-control" />
+    <input hidden asp-for="@Model.Point" class="form-control" />
+    <div class="form-floating form-register-element justify-content-center text-inter  text-radiobutton text-black-50">
+        @foreach (var option in Model.Options)
+        {
+            <input type="radio" asp-for="@Model.Answer" value="@option.Id" />   @option.Option1
+
+            <br />
+
+            <br />
+        }
+    </div>
+    @if (ViewBag.Point != -1)
+    { 
+        <div class="form-floating form-register-element">
+            <p class="text-inter  text-radiobutton text-green">You've already been through this task. Your points: @ViewBag.Point</p>
+        </div>
+    }
+    else
+    {
+        <div class="form-floating form-register-element">
+            <input type="submit" value="Respond" class="btn btn-primary btn-register" />
+        </div>
+    }
+</form>
+

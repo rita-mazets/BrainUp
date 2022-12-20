@@ -1,0 +1,58 @@
+﻿@model BrainUp.ViewModels.TaskViewModel
+
+@await Component.InvokeAsync("ConfirmTask", new { id = Model.TaskId })
+
+
+<form method="post" enctype="multipart/form-data">
+    
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input hidden asp-for="@Model.TaskId"  />
+
+    @if (!string.IsNullOrEmpty(Model.Image))
+    {
+        <div class="form-group form-register-element">
+            <img src="~/img/@Model.Image" width="100%" />
+        </div>
+    }
+    <input hidden asp-for="@Model.Image" />
+    <input hidden asp-for="@Model.SubMenuId" />
+    <div class="form-group form-register-element">
+        <label asp-for="@Model.Name" class="text-inter text-small"></label>
+        <input asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group form-register-element">
+        <label asp-for="@Model.Condition" class="text-inter text-small"></label>
+        <textarea asp-for="@Model.Condition" class="form-control" style="height:16.5vh;"></textarea>
+        <span asp-validation-for="@Model.Condition" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-register-element">
+        <label asp-for="@Model.Point" class="text-inter text-small"></label>
+        <input asp-for="@Model.Point" class="form-control" />
+        <span asp-validation-for="@Model.Point" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-register-element">
+        <label for="file-upload" class="custom-file-upload text-inter text-small">
+            Change image
+        </label>
+        <input asp-for="ImageFormFile" id="file-upload" type="file" />
+    </div>
+
+    <div class="row form-input-element">
+        <div class="col justify-content-start">
+            <div class="form-group form-register-element">
+                <input asp-action="Update" asp-controller="Task" type="submit" value="Save" class="btn btn-primary btn-register" />
+            </div>
+        </div>
+        <div class="col justify-content-start">
+            <div class="form-group form-register-element">
+                <input asp-action="Delete" asp-controller="Task" type="submit" value="Delete" class="btn btn-primary btn-register" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@await Component.InvokeAsync("ReadOptions", new { taskId = Model.TaskId })

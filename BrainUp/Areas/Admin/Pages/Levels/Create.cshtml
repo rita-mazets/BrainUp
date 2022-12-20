@@ -1,0 +1,33 @@
+﻿@page
+@model BrainUp.Areas.Admin.Pages.Levels.CreateModel
+
+@{
+    ViewData["Title"] = "Create level";
+}
+
+<div class="text-welcome-register pt-3 p-lg-3 pr-3 pb-1">
+    Create level
+    <p class="mb-0">
+        <a class="a-link text-small" asp-page="./Index">Back to List</a>
+    </p>
+</div>
+<hr />
+
+<div class="row">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group form-input-element">
+            <label asp-for="Level.Name" class="control-label"></label>
+            <input asp-for="Level.Name" class="form-control" />
+            <span asp-validation-for="Level.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group form-input-element">
+            <input type="submit" value="Create" class="btn btn-primary btn-register" />
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

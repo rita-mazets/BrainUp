@@ -1,0 +1,50 @@
+﻿<div class=" background-panel bg-background-color-dark-blue row p-3 border-radius-12">
+    <div class="col">
+        <div class="dropdown text-center bg-background-color-dark-blue">
+            <a href="#" class="d-block text-middle link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Menu
+            </a>
+
+            <ul class="dropdown-menu text-small dropdown-menu-dark rounded-3 shadow">
+                <a asp-action="Fill" asp-route-id="@Model.Id" asp-route-menuId="@ViewBag.Menu" asp-route-submenuId="@ViewBag.Submenu" asp-route-number="CreateMenu"  class="dropdown-item">Create</a>
+                <a asp-action="Fill" asp-route-id="@Model.Id" asp-route-menuId="@ViewBag.Menu" asp-route-submenuId="@ViewBag.Submenu" asp-route-number="EditMenu"  class="dropdown-item">Edit</a>
+                <a asp-action="Fill" asp-route-id="@Model.Id" asp-route-menuId="@ViewBag.Menu" asp-route-submenuId="@ViewBag.Submenu" asp-route-number="DeleteMenu"  class="dropdown-item">Delete</a>
+            </ul>
+        </div>
+    </div>
+    <div class="col">
+        <div class="dropdown text-end bg-background-color-dark-blue">
+            <a href="#" class="d-block text-middle link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Submenu
+            </a>
+
+            <ul class="dropdown-menu text-small dropdown-menu-dark rounded-3 shadow">
+                <a asp-action="Fill" asp-route-id="@Model.Id" asp-route-menuId="@ViewBag.Menu" asp-route-submenuId="@ViewBag.Submenu" asp-route-number="CreateSubmenu"  class="dropdown-item">Create</a>
+                <a asp-action="Fill" asp-route-id="@Model.Id" asp-route-menuId="@ViewBag.Menu" asp-route-submenuId="@ViewBag.Submenu" asp-route-number="EditSubmenu"  class="dropdown-item">Edit</a>
+                <a asp-action="Fill" asp-route-id="@Model.Id" asp-route-menuId="@ViewBag.Menu" asp-route-submenuId="@ViewBag.Submenu" asp-route-number="DeleteSubMenu"  class="dropdown-item">Delete</a>
+            </ul>
+        </div>
+    </div>
+    <div class="col">
+        <div class="dropdown text-end bg-background-color-dark-blue">
+            <a href="#" class="d-block text-middle link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Content
+            </a>
+
+            <ul class="dropdown-menu text-small dropdown-menu-dark rounded-3 shadow">
+                <a asp-action="Fill" asp-route-id="@Model.Id"  asp-route-number="CreateContent"  class="dropdown-item">Create</a>
+            </ul>
+        </div>
+    </div>
+    <div class="col">
+        <div class="dropdown text-end bg-background-color-dark-blue">
+            <a href="#" class="d-block text-middle link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Task
+            </a>
+
+            <ul class="dropdown-menu text-small dropdown-menu-dark rounded-3 shadow">
+                <a asp-action="Fill" asp-route-id="@Model.Id"  asp-route-number="CreateTask"  class="dropdown-item">Create</a>
+            </ul>
+        </div>
+    </div>
+</div>

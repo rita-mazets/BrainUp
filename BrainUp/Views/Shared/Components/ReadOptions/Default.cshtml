@@ -1,0 +1,25 @@
+﻿@model IEnumerable<OptionViewModel>
+
+<table class="table text-inter text-small form-register-element">
+    <thead>
+        <tr>
+            <th>
+               Is True
+            </th>
+            <th>
+                Option
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @await Component.InvokeAsync("CreateOption", new { taskId = ViewBag.TaskId})
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                @await Component.InvokeAsync("ReadOption", new { model = item })
+            }
+        }
+    </tbody>
+</table>
